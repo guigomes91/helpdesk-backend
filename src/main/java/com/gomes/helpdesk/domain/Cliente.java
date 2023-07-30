@@ -3,6 +3,7 @@ package com.gomes.helpdesk.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gomes.helpdesk.domain.enums.Perfil;
 
 import jakarta.persistence.Entity;
@@ -13,6 +14,7 @@ public class Cliente extends Pessoa {
 
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Chamado> chamados = new ArrayList<>();
 
