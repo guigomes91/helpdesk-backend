@@ -14,6 +14,8 @@ import com.gomes.helpdesk.repositories.TecnicoRepository;
 import com.gomes.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.gomes.helpdesk.services.exceptions.ObjectNotFoundException;
 
+import jakarta.validation.Valid;
+
 @Service
 public class TecnicoService {
 
@@ -39,6 +41,15 @@ public class TecnicoService {
 		Tecnico newObj = new Tecnico(objDTO);
 		
 		return repository.save(newObj);
+	}
+	
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+		objDTO.setId(id);
+		Tecnico objOld = findById(id);
+		validaPorCpfEEmail(objDTO);
+		objOld = new Tecnico(objDTO);
+		
+		return repository.save(objOld);
 	}
 
 	private void validaPorCpfEEmail(TecnicoDTO objDTO) {
