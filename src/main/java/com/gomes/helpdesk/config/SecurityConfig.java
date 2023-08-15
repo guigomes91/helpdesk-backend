@@ -23,6 +23,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.gomes.helpdesk.security.JWTAuthenticationFilter;
+import com.gomes.helpdesk.security.JWTAuthorizationFilter;
 import com.gomes.helpdesk.security.JWTUtils;
 
 @EnableWebSecurity
@@ -54,6 +55,10 @@ public class SecurityConfig {
 				new JWTAuthenticationFilter(
 						authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), jwtUtils),
 				BasicAuthenticationFilter.class);
+
+		http.addFilterBefore(new JWTAuthorizationFilter(
+				authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), jwtUtils,
+				userDetailsService), BasicAuthenticationFilter.class);
 
 		return http.build();
 	}
