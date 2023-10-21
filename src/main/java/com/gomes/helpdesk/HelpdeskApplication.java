@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HelpdeskApplication {
 
 	public static void main(String[] args) {
+		System.setProperty("server.servlet.context-path", "/api");
 		SpringApplication.run(HelpdeskApplication.class, args);
 	}
 
